@@ -1,0 +1,15 @@
+{
+    "name": "petermolnar/wp-featured2rss",
+    "description": "WordPress plugin to add a resized featured image to RSS feed as enclosure (which WordPress doesn't do by default)",
+    "require": {
+        "php": ">=5.3.0",
+    },
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Peter Molnar",
+            "email": "hello@petermolnar.eu",
+            "homepage": "https://petermolnar.eu"
+        }
+    ]
+}
