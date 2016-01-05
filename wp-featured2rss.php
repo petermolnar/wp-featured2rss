@@ -32,8 +32,17 @@ class WP_FEATURED2RSS {
 	const expire = 30;
 
 	public function __construct () {
-
+		register_activation_hook( __FILE__ , array( &$this, 'plugin_activate' ) );
 		add_action( 'rss2_item', array(&$this,'insert_enclosure_image') );
+	}
+
+	/**
+	 * activate hook
+	 */
+	public static function plugin_activate() {
+		if ( version_compare( phpversion(), 5.3, '<' ) ) {
+			die( 'The minimum PHP version required for this plugin is 5.3' );
+		}
 	}
 
 	/**
@@ -43,7 +52,7 @@ class WP_FEATURED2RSS {
 
 		$post = static::fix_post();
 
-		static::debug('insterting featured image to rss');
+		//static::debug('insterting featured image to rss');
 
 		if ($post === false )
 			return false;
@@ -54,12 +63,6 @@ class WP_FEATURED2RSS {
 
 		if ( $cached = wp_cache_get ( $thid, __CLASS__ . __FUNCTION__ ) )
 			return $cached;
-
-		$sizes = array (
-			0 => 'large',
-			1 => 'medium',
-			2 => 'thumbnail'
-		);
 
 		$asize = false;
 		$meta = wp_get_attachment_metadata($thid);
@@ -76,10 +79,10 @@ class WP_FEATURED2RSS {
 		arsort($candidates);
 
 		foreach ($candidates as $potential => $maxsize ) {
-			static::debug('checking size ' . $potential . ': ' . $meta['sizes'][$potential]['file'] . ' vs ' .$meta['file'] );
+			//static::debug('checking size ' . $potential . ': ' . $meta['sizes'][$potential]['file'] . ' vs ' .$meta['file'] );
 
 			if (isset($meta['sizes'][$potential]) && isset($meta['sizes'][$potential]['file']) && $meta['sizes'][$potential]['file'] != $meta['file']) {
-				static::debug( $meta['sizes'][$potential]['file'] . ' look like a resized file, using it');
+				//static::debug( $meta['sizes'][$potential]['file'] . ' look like a resized file, using it');
 				$asize = $potential;
 				$img = wp_get_attachment_image_src( $thid, $potential );
 				break;

@@ -19,7 +19,7 @@ It's strictly only using resized images to maintain compatibility in case access
 
 == Installation ==
 
-1. Upload contents of `wp-featured2rss` to the `/wp-content/plugins/` directory
+1. Upload contents of `wp-featured2rss.zip` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the `Plugins` menu in WordPress
 
 == Frequently Asked Questions ==
