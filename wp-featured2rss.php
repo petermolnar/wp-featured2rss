@@ -3,7 +3,7 @@
 Plugin Name: wp-featured2rss
 Plugin URI: https://github.com/petermolnar/wp-featured2rss
 Description: WordPress plugin to add featured image to RSS feed as attachment (which WordPress doesn't do by default)
-Version: 0.1
+Version: 0.1.1
 Author: Peter Molnar <hello@petermolnar.eu>
 Author URI: http://petermolnar.eu/
 License: GPLv3
@@ -52,7 +52,7 @@ class WP_FEATURED2RSS {
 
 		$post = static::fix_post();
 
-		//static::debug('insterting featured image to rss');
+		static::debug('insterting featured image to rss',7);
 
 		if ($post === false )
 			return false;
@@ -79,10 +79,10 @@ class WP_FEATURED2RSS {
 		arsort($candidates);
 
 		foreach ($candidates as $potential => $maxsize ) {
-			//static::debug('checking size ' . $potential . ': ' . $meta['sizes'][$potential]['file'] . ' vs ' .$meta['file'] );
+			static::debug('checking size ' . $potential . ': ' . $meta['sizes'][$potential]['file'] . ' vs ' .$meta['file'], 7 );
 
 			if (isset($meta['sizes'][$potential]) && isset($meta['sizes'][$potential]['file']) && $meta['sizes'][$potential]['file'] != $meta['file']) {
-				//static::debug( $meta['sizes'][$potential]['file'] . ' look like a resized file, using it');
+				static::debug( $meta['sizes'][$potential]['file'] . ' look like a resized file, using it', 7);
 				$asize = $potential;
 				$img = wp_get_attachment_image_src( $thid, $potential );
 				break;
@@ -172,7 +172,7 @@ class WP_FEATURED2RSS {
 		// in case WordPress debug log has a minimum level
 		if ( defined ( 'WP_DEBUG_LEVEL' ) ) {
 			$wp_level = $levels [ WP_DEBUG_LEVEL ];
-			if ( $level_ < $wp_level ) {
+			if ( $level_ > $wp_level ) {
 				return false;
 			}
 		}
